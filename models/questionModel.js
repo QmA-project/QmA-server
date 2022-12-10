@@ -2,7 +2,7 @@ const pool = require('../modules/pool');
 
 // 질문 목록 조회
 async function getQuestionListDataByGroupId(groupId) {
-    const query = `SELECT * FROM question WHERE question.groupId=?;`;
+    const query = 'SELECT * FROM question WHERE question.groupId=?;';
     try {
         const result = await pool.queryParam(query, groupId).catch(
             function(error) {

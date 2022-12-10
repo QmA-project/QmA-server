@@ -1,8 +1,9 @@
-const userModel = require("../models/questionModel");
+const questionModel = require("../models/questionModel");
 
 // 공개 질문 목록 조회
 async function getPublicQuestionListByGroupId(req, res) {
-    var result = await questionModel.getQuestionListDataByGroupId(0);
+    const PUBLIC_GROUP_ID = 1;
+    var result = await questionModel.getQuestionListDataByGroupId(PUBLIC_GROUP_ID);
     if (!result)
         res.json({ "result": "FAIL" });
     else {
