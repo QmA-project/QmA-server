@@ -122,9 +122,10 @@ async function getGroupDataByGroupId(groupId) {
 
 // 오늘의 질문 조회
 async function getDailyQuestionData(todayDate) {
-    const query = `SELECT * FROM question WHERE createdAt.date=? AND isDaily=true`;
+    const todayDateWildStr = todayDate + '%';
+    const query = `SELECT * FROM question WHERE createdAt LIKE ? AND isDaily=true;`;
     try {
-        const result = await pool.queryParam(query, todayDate).catch(
+        const result = await pool.queryParam(query, todayDateWildStr).catch(
             function(error) {
                 console.log(error);
                 return null;
