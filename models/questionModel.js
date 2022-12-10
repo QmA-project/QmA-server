@@ -2,7 +2,7 @@ const pool = require('../modules/pool');
 
 // 질문 목록 조회
 async function getQuestionListDataByGroupId(groupId) {
-    const query = 'SELECT * FROM question WHERE question.groupId=?;';
+    const query = `SELECT question.questionId, question.content, question.createdAt, COUNT(question.questionId) AS numOfAnswers FROM question LEFT OUTER JOIN answer ON question.questionId=answer.questionId WHERE question.groupId=? GROUP BY question.questionId;`
     try {
         const result = await pool.queryParam(query, groupId).catch(
             function(error) {
@@ -15,9 +15,9 @@ async function getQuestionListDataByGroupId(groupId) {
             question.questionId = questionData.questionId;
             question.content = questionData.content;
             question.createdAt = questionData.createdAt;
+            question.numOfAnswers = questionData.numOfAnswers;
             questionInfo.push(question);
         }
-        // TODO: numOfAnswers 추가해야함
         questionInfo = JSON.stringify(questionInfo);
         return questionInfo;
     } catch (error) {
