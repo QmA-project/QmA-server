@@ -25,7 +25,19 @@ async function getGroupFriendListByGroupId(req, res){
     }
 }
 
+// 그룹 생성
+async function createGroup(req, res){
+    var post = req.body;
+    var sendValue = [post.groupName, post.groupColorCode, post.groupStatusMsg];
+    var result = await groupModel.insertGroup(sendValue);
+    if (!result)
+        res.json({"result": "FAIL"});
+    else
+        res.json({"result": "SUCCESS"});
+}
+
 module.exports = {
     getGroupListByUserId,
-    getGroupFriendListByGroupId
+    getGroupFriendListByGroupId,
+    createGroup
 }

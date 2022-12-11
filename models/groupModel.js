@@ -51,7 +51,19 @@ async function getGroupFriendListDataByGroupId(sendValue) {
     }
 }
 
+// 그룹 생성
+async function insertGroup(sendValue) {
+    const query = "INSERT INTO `group` (name, colorCode, statusMsg) VALUES (?, ?, ?)";
+    try {
+        const result = await pool.queryParam(query, sendValue);
+        return result;
+    } catch (error) {
+        return null;
+    }
+}
+
 module.exports = {
     getGroupListDataByUserId,
-    getGroupFriendListDataByGroupId
+    getGroupFriendListDataByGroupId,
+    insertGroup
 }
