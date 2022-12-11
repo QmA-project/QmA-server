@@ -11,4 +11,7 @@ router.post('/friends', groupController.getGroupFriendListByGroupId);
 // 그룹 생성
 router.post('/new', groupController.createGroup);
 
+// 그룹에 친구 추가
+router.post('/friends/new', groupController.addFriendIntoGroup);
+
 module.exports = router;

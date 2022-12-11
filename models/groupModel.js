@@ -62,8 +62,21 @@ async function insertGroup(sendValue) {
     }
 }
 
+// 그룹에 친구 추가
+async function insertFrinedIntoGroup(sendValue) {
+    const query = "INSERT INTO user_group (userId, groupId) VALUES (?, ?)";
+    try {
+        const result = await pool.queryParam(query, sendValue);
+        return result;
+    } catch (error) {
+        return null;
+    }
+}
+
+
 module.exports = {
     getGroupListDataByUserId,
     getGroupFriendListDataByGroupId,
-    insertGroup
+    insertGroup,
+    insertFrinedIntoGroup
 }

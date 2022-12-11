@@ -36,8 +36,20 @@ async function createGroup(req, res){
         res.json({"result": "SUCCESS"});
 }
 
+// 그룹에 친구 추가
+async function addFriendIntoGroup(req, res){
+    var post = req.body;
+    var sendValue = [post.userId, post.groupId];
+    var result = await groupModel.insertFrinedIntoGroup(sendValue);
+    if (!result)
+        res.json({"result": "FAIL"});
+    else
+        res.json({"result": "SUCCESS"});
+}
+
 module.exports = {
     getGroupListByUserId,
     getGroupFriendListByGroupId,
-    createGroup
+    createGroup,
+    addFriendIntoGroup
 }
