@@ -138,11 +138,10 @@ async function getDailyQuestionData(todayDate) {
 
 // HOT 질문 조회
 async function getDailyHotQuestionData(todayDate) {
-    // TODO: 쿼리 짜리
-    // 오늘 작성된 질문 중 댓글 가장 많은 질문
-    const query = `SELECT * FROM question WHERE createdAt.date=?`;
+    const todayDateWildStr = todayDate + '%';
+    const query = `SELECT question.questionId, question.content, question.createdAt, COUNT(question.questionId) AS numOfAnswers FROM question LEFT OUTER JOIN answer ON question.questionId=answer.questionId WHERE question.createdAt LIKE ? GROUP BY question.questionId ORDER BY numOfAnswers desc limit 1`;
     try {
-        const result = await pool.queryParam(query, todayDate).catch(
+        const result = await pool.queryParam(query, todayDateWildStr).catch(
             function(error) {
                 console.log(error);
                 return null;
