@@ -67,11 +67,11 @@ async function getDailyQuestion(req, res) {
 // HOT 질문 조회
 async function getDailyHotQuestion(req, res) {
     var post = req.body;
-    var result = await questionModel.getDailyQuestionData(post.todayDate);
+    var result = await questionModel.getDailyHotQuestionData(post.todayDate);
     if (!result)
         res.json({ "result": "FAIL" });
     else {
-        res.json({ "result": "SUCCESS", 'questionId': result[0].questionId, "content": result[0].content });
+        res.json({ "result": "SUCCESS", 'questionId': result[0].questionId, "content": result[0].content, "createdAt": result[0].createdAt, "numOfAnswers": result[0].numOfAnswers });
     }
 }
 
