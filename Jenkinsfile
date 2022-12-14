@@ -15,7 +15,7 @@ pipeline {
         stage("Build image") {
             steps {
                 script {
-                    myapp = docker.build("qma-docker/qma:${env.BUILD_ID}")
+                    myapp = docker.build("ynawhocodes/qma-docker:${env.BUILD_ID}")
                 }
             }
         }
