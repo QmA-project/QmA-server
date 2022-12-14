@@ -10,7 +10,7 @@ WORKDIR /app
 # Install Node.js dependencies defined in '/app/packages.json'
 RUN npm install
 
-FROM bitnami/node:9-prod
+FROM bitnami/node:12-prod
 ENV NODE_ENV="production"
 COPY --from=builder /app /app
 WORKDIR /app
