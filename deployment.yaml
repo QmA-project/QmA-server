@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qma
+  labels:
+    app: qma
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: qma
+  template:
+    metadata:
+      labels:
+        app: qma
+        tier: qma
+    spec:
+      containers:
+      - name: qma
+        image: qma-docker/qma:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+          name: qma
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: qma
+  labels:
+    app: qma
+spec:
+  ports:
+  - port: 80
+    targetPort: 3000
+  selector:
+    app: qma
+    tier: qma
+  type: LoadBalancer
